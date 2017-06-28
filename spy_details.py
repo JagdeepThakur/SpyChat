@@ -43,4 +43,4 @@ friend_three = Spy('Ed Sheeran', 'Mr ', 30, 5)
 
 # we created a list named friend
 
-friends = [friend_one,friend_two,friend_three]
+friends = [friend_one, friend_two, friend_three]

@@ -87,7 +87,7 @@ def add_status():
 
             # Let's use regular expression
 
-            J4 = r"([a-zA-z]+)"
+            J4 = r"([a-zA-Z]+)"
 
             if re.search(J4, new_status_message):
 
@@ -99,6 +99,8 @@ def add_status():
 
                 # I are Happy with your value
                 # exiting Loop
+                break
+
 
             else:
 
@@ -263,7 +265,7 @@ def add_friend():
         print '\nFriend Added!'
 
     else:
-        print '\nSorry! Invalid entry. We can \'t add spy with details you provided '
+        print '\nSorry! Invalid entry. We can\'t add spy with details you provided '
 
 
     return len(friends)
