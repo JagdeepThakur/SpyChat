@@ -125,21 +125,21 @@ def add_status():
 
         while True:
 
-            message_selection = int(raw_input("choose from above messages : \n"))
-
             try:
-                value = message_selection
+
+                message_selection = int(raw_input("\nchoose from above messages : "))
 
             except ValueError:
+
                 print "\nPlease enter a valid value "
                 continue
 
 
-            if value < 0:
+            if message_selection < 0:
                 print "\nSorry, your response must not be negative.\n"
                 continue
 
-            elif value > item_position :
+            elif message_selection > item_position :
                 print "\nSorry,your response must be correct"
                 continue
 
@@ -166,7 +166,7 @@ def add_status():
 
 def add_friend():
 
-    sys.stdout.write(Fore.GREEN + " ")
+    sys.stdout.write(Fore.YELLOW + " ")
 
     new_friend = Spy('','',0,0.0)
 
@@ -273,7 +273,7 @@ def add_friend():
 
 def select_a_friend():
 
-    sys.stdout.write(Fore.LIGHTMAGENTA_EX + " ")
+    sys.stdout.write(Fore.BLUE + " ")
 
     item_number = 0
 
@@ -318,38 +318,93 @@ def send_message():
 
     friend_choice = select_a_friend()
 
-    original_image = raw_input("\nWhat is name of the image: ")
+    # Asking the user for input until they give a valid response
 
-    output_path = raw_input("\nEnter the output path: ")
+    while True:
 
-    text = raw_input("\nWhat do you want to say? ")
+        sys.stdout.write(Fore.RED + " ")
 
-    Steganography.encode(original_image, output_path, text)
+        global text
 
-    new_chat = Chat(text,True)
+        text = raw_input("\nWhat do you want to say? ")
 
-    friends[friend_choice].chats.append(new_chat)
+        J2 = r"([a-zA-z]+" ")"
 
-    print "\nYour secret message is ready! "
+        # Maintaining the number of words spoken by a spy
+        # User can only enter a characters or words
+
+        if re.search(J2, text) and len(text.split()) <= 10 :
+
+            # i am happy with the value
+            # exiting loop
+            break
+
+
+        else:
+
+            print "\nPlease enter a valid value and you can not speak more than 10 words!!!"
+            continue
+
+    # if spy sends message like SOS,SAVE ME,YO BRO it will be displayed as it is... in read message!!
+
+    if 'SOS' in text or 'SAVE ME' in text or 'YO BRO' in text:
+
+        new_chat = Chat(text, True)
+
+        friends[friend_choice].chats.append(new_chat)
+
+    else:
+
+        # Enter image name which is currently in project folder
+        # Like 1.jpg
+
+        original_image = raw_input("\nWhat is name of the image(Enter image name which is currently in project folder Like 1.jpg): ")
+
+        output_path = raw_input("\nEnter the output path: ")
+
+        Steganography.encode(original_image, output_path, text)
+
+        new_chat = Chat(text,True)
+
+        friends[friend_choice].chats.append(new_chat)
+
+        print "\nYour secret message is ready! "
+
+
 
 
 # read_message function used to read messages send by the user
 
 def read_message():
 
+
         sys.stdout.write(Fore.LIGHTBLUE_EX + " ")
 
         sender = select_a_friend()
 
-        output_path = raw_input("\nWhat is name of your file? " )
+        if 'SOS' in text or 'SAVE ME' in text or 'YO BRO' in text:
 
-        secret_text = Steganography.decode(output_path)
+            for chat in friends[sender].chats:
 
-        new_chat = Chat(secret_text, False)
+                if chat.sent_by_me:
 
-        friends[sender].chats.append(new_chat)
+                    print "\n" + chat.message
 
-        print "\nYour secret message has been saved! "
+        else:
+
+            sys.stdout.write(Fore.LIGHTBLUE_EX + " ")
+
+            sender = select_a_friend()
+
+            output_path = raw_input("\nWhat is name of your file? " )
+
+            secret_text = Steganography.decode(output_path)
+
+            new_chat = Chat(secret_text, False)
+
+            friends[sender].chats.append(new_chat)
+
+            print "\nYour secret message has been saved! "
 
 
 # read_chat_history function used to read the chat history of two users
@@ -381,12 +436,6 @@ def read_chat_history():
             sys.stdout.write(Fore.BLACK + chat.message)
 
             print '\n'
-
-            # Style.Reset_All resets foreground, background, and brightness.
-
-
-
-
 
         else:
 

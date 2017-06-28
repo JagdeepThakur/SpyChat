@@ -41,6 +41,6 @@ friend_one = Spy('Vishav Gupta', 'Mr ', 19, 4.6)
 friend_two = Spy('keshav Mahajan ', 'Mr ', 20, 4.6)
 friend_three = Spy('Ed Sheeran', 'Mr ', 30, 5)
 
-# we created a list named friend
+# we created a list named friends
 
 friends = [friend_one, friend_two, friend_three]
