@@ -1,2 +1,2 @@
 # SpyChat
-This is college project
+This is a college project
