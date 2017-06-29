@@ -332,21 +332,26 @@ def send_message():
         # Maintaining the number of words spoken by a spy
         # User can only enter a characters or words
 
-        if re.search(J2, text) and len(text.split()) <= 10 :
+        if re.search(J2, text):
 
             # i am happy with the value
             # exiting loop
             break
 
-
         else:
-
-            print "\nPlease enter a valid value and you can not speak more than 10 words!!!"
+            print "\nPlease enter a valid message"
             continue
 
-    # if spy sends message like SOS,SAVE ME,YO BRO it will be displayed as it is... in read message!!
+    # Deleting a spy if it speaks more than 100 words
 
-    if 'SOS' in text or 'SAVE ME' in text or 'YO BRO' in text:
+    if len(text) >100:
+
+        print "\nYou have exceeded the message limit we removing you from chat"
+        del friends[friend_choice]
+
+    # If spy sends message like SOS, SAVE ME, YO BRO.....It will be displayed as it is in read message
+
+    elif 'SOS' in text or 'SAVE ME' in text or 'YO BRO' in text:
 
         new_chat = Chat(text, True)
 
@@ -380,6 +385,10 @@ def read_message():
         sys.stdout.write(Fore.LIGHTBLUE_EX + " ")
 
         sender = select_a_friend()
+
+        # Average Number of words spoken by a spy when receiving a message
+
+        print ("\nAverage Number of words spoken by a spy is: %d") % len(text.split( ))
 
         if 'SOS' in text or 'SAVE ME' in text or 'YO BRO' in text:
 
