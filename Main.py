@@ -12,20 +12,19 @@ init()
 
 import re
 
-from spy_details import spy,Spy,Chat, friends
-
 # we will use Steganography to hide our messages
 
 from steganography.steganography import Steganography
 
+#  sys module provides access to some variables used or maintained by the interpreter and to functions that interact strongly with the interpreter.
+
 import sys
 
+from spy_details import spy,Spy,Chat, friends
 
 status_messages = ['Jai Hind, Jai Bharat', 'Jai Jawan Jai Kisan', 'If death strikes before i prove my blood, i swear i will kill death', 'Some goals are so worthy, its glorious even to fail','Only best of the Friends and worst of enemies visit us-Indian Army']
 
-
 sys.stdout.write(Fore.RED + " \nHello! Let's get started \n")
-
 
 # Asking the user for input until they give a valid response
 
