@@ -329,8 +329,7 @@ def send_message():
 
         J2 = r"([a-zA-z]+" ")"
 
-        # Maintaining the number of words spoken by a spy
-        # User can only enter a characters or words
+        # User can only enter a character or words
 
         if re.search(J2, text):
 
@@ -353,9 +352,11 @@ def send_message():
 
     elif 'SOS' in text or 'SAVE ME' in text or 'YO BRO' in text:
 
-        new_chat = Chat(text, True)
+        new_chat = Chat("Help will arrive soon !!", True)
 
         friends[friend_choice].chats.append(new_chat)
+
+        print "\nYour secret message is ready! "
 
     else:
 
@@ -388,7 +389,7 @@ def read_message():
 
         # Average Number of words spoken by a spy when receiving a message
 
-        print ("\nAverage Number of words spoken by a spy is: %d") % len(text.split( ))
+        print ("\nAverage Number of words spoken by a spy is: %d") % len(text.split())
 
         if 'SOS' in text or 'SAVE ME' in text or 'YO BRO' in text:
 
@@ -412,7 +413,16 @@ def read_message():
 
             friends[sender].chats.append(new_chat)
 
-            print "\nYour secret message has been saved! "
+            for chat in friends[sender].chats:
+
+                if chat.sent_by_me:
+
+                    print "\n" + chat.message
+
+                else:
+
+                    print "\n" + chat.message
+
 
 
 # read_chat_history function used to read the chat history of two users
@@ -480,6 +490,16 @@ def start_chat(spy):
 
         sys.stdout.write(Fore.BLUE + "\nAuthentication complete. Welcome " + spy.spy_name + " age: " +str(spy.spy_age) + " and rating of: " + str(spy.spy_rating) + ". Proud to have you onboard \n")
 
+        # Printing appropriate message for spy of different ratings
+
+        if spy.spy_rating > 4.5:
+            print '\nGreat ace!'
+        elif spy.spy_rating > 3.5 and spy.spy_rating <= 4.5:
+            print '\nYou are one of the good ones.'
+        elif spy.spy_rating >= 2.5 and spy.spy_rating <= 3.5:
+            print '\nYou can always do better'
+        else:
+            print '\nWe can always use somebody to help in the office.'
 
         show_menu = True
 
