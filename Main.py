@@ -348,11 +348,13 @@ def send_message():
         print "\nYou have exceeded the message limit we removing you from chat"
         del friends[friend_choice]
 
-    # If spy sends message like SOS, SAVE ME, YO BRO.....It will be displayed as it is in read message
+    # If spy sends message like SOS, SAVE ME, YO BRO..... an appropriate message will be displayed  in read message
 
     elif 'SOS' in text or 'SAVE ME' in text or 'YO BRO' in text:
 
-        new_chat = Chat("Help will arrive soon !!", True)
+        app_message = "Help will arrive soon !!"
+
+        new_chat = Chat( app_message, True)
 
         friends[friend_choice].chats.append(new_chat)
 
@@ -365,7 +367,16 @@ def send_message():
 
         original_image = raw_input("\nWhat is name of the image(Enter image name which is currently in project folder Like 1.jpg): ")
 
-        output_path = raw_input("\nEnter the output path: ")
+        while True:
+            output_path = raw_input("\nEnter the output path: ")
+
+            if len(output_path) > 0 and output_path != " ":
+                break
+
+            else:
+                print "\n Enter a valid value..!!"
+                continue
+
 
         Steganography.encode(original_image, output_path, text)
 
@@ -387,10 +398,6 @@ def read_message():
 
         sender = select_a_friend()
 
-        # Average Number of words spoken by a spy when receiving a message
-
-        print ("\nAverage Number of words spoken by a spy is: %d") % len(text.split())
-
         if 'SOS' in text or 'SAVE ME' in text or 'YO BRO' in text:
 
             for chat in friends[sender].chats:
@@ -399,13 +406,23 @@ def read_message():
 
                     print "\n" + chat.message
 
+                    # Average Number of words spoken by a spy when receiving a message
+
+            print ("\nAverage Number of words spoken by a spy is: %d") % len(text.split())
+
         else:
 
             sys.stdout.write(Fore.LIGHTBLUE_EX + " ")
 
-            sender = select_a_friend()
+            while True:
+                output_path = raw_input("\nEnter the output path: ")
 
-            output_path = raw_input("\nWhat is name of your file? " )
+                if len(output_path) > 0 and output_path != " ":
+                    break
+
+                else:
+                    print "\n Enter a valid value..!!"
+                    continue
 
             secret_text = Steganography.decode(output_path)
 
@@ -418,12 +435,16 @@ def read_message():
                 if chat.sent_by_me:
 
                     print "\n" + chat.message
+                    break
 
                 else:
 
                     print "\n" + chat.message
+                    break
 
+                    # Average Number of words spoken by a spy when receiving a message
 
+            print ("\nAverage Number of words spoken by a spy is: %d") % len(text.split())
 
 # read_chat_history function used to read the chat history of two users
 
